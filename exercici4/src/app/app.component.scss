@@ -1,0 +1,34 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.app-title {
+  font-weight: 700;
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.padding {
+  padding: 2rem;
+}
+
+.menu-list *{
+  cursor: pointer;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

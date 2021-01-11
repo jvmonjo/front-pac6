@@ -1,0 +1,29 @@
+<h1>Languages form</h1>
+<form class="language" [formGroup]="languageForm" (ngSubmit)="save()">
+
+  <mat-form-field appearance="fill">
+    <mat-label for="type">Level</mat-label>
+    <select matNativeControl [formControl]="level" required>
+      <option *ngFor="let item of levelList" [value]="item">{{item}}</option>
+    </select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label for="type">Language</mat-label>
+    <select matNativeControl [formControl]="language" required>
+      <option *ngFor="let item of languageList" [value]="item">{{item}}</option>
+    </select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label for="finishDate">Finish date</mat-label>
+    <input matInput [formControl]="finishDate" type="date" name="finishDate" id="finishDate">
+  </mat-form-field>
+  
+
+
+
+<div>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!languageForm.valid">Save</button>
+</div>
+</form>

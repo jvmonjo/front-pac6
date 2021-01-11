@@ -1,0 +1,22 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+
+  * {
+    margin-bottom: 1rem;
+  }
+  .error {
+    color: red;
+    font-size: 0.8rem;
+  }
+}
+
+table {
+  width: 100%;
+  margin-bottom: 2em;
+}
+
+section {
+  margin: 2em 0;
+}

@@ -1,0 +1,115 @@
+<div *ngIf="activity">
+  <mat-card>
+    <h2 id="activity-details">Activity details</h2>
+
+    <form class="activity" [formGroup]="activityForm">
+
+      <mat-form-field appearance="fill">
+        <mat-label for="name">Name</mat-label>
+        <input matInput type="name" name="name" id="name" required [formControl]="name">
+        <mat-error *ngIf="name.hasError('minlength') || name.hasError('maxlength')">
+          Name should be between 3 and 35 characters
+        </mat-error>
+        <mat-error *ngIf="name.hasError('required')">
+          name is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="description">Description</mat-label>
+        <input matInput [formControl]="description" type="text" name="description" id="description">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="date">Date</mat-label>
+        <input matInput [formControl]="date" type="date" name="date" id="date" >
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="type">Language</mat-label>
+        <select matNativeControl [formControl]="language" required>
+          <option *ngFor="let item of languageList" [value]="item.value">{{item.label}}</option>
+        </select>
+        <mat-error *ngIf="language.hasError('required')">
+          language is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="type">Category</mat-label>
+        <select matNativeControl [formControl]="category" required>
+          <option *ngFor="let item of categoryList" [value]="item">{{item}}</option>
+        </select>
+        <mat-error *ngIf="category.hasError('required')">
+          category is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="type">Subcategory</mat-label>
+        <select matNativeControl [formControl]="subcategory" required>
+          <option *ngFor="let item of subcategoryList" [value]="item">{{item}}</option>
+        </select>
+          <mat-error class="error" *ngIf="subcategory.hasError('required')">
+            subcategory is required.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="minimumCapacity">Price</mat-label>
+        <input matInput min="0" [formControl]="price" type="number" name="price" id="price" required >
+          <mat-error class="error" *ngIf="price.hasError('required')">
+            price is required.
+          </mat-error>
+          <mat-error class="error" *ngIf="price.hasError('min')">
+            price needs to be grater than 0.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="minimumCapacity">Minimum capacity</mat-label>
+        <input matInput min="0" [formControl]="minimumCapacity" type="number" name="minimumCapacity" id="minimumCapacity" required >
+          <mat-error class="error" *ngIf="minimumCapacity.hasError('required')">
+            minimum Capacity is required.
+          </mat-error>
+          <mat-error class="error" *ngIf="minimumCapacity.hasError('min')">
+            minimum capacity needs to be grater than 0.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="limitCapacity">Limit capacity</mat-label>
+        <input matInput min="0" [formControl]="limitCapacity" type="number" name="limitCapacity" id="limitCapacity" required >
+          <mat-error class="error" *ngIf="limitCapacity.hasError('required')">
+            limit Capacity is required.
+          </mat-error>
+          <mat-error class="error" *ngIf="limitCapacity.hasError('min')">
+            limit Capacity needs to be grater than 0.
+          </mat-error>
+      </mat-form-field>
+
+      <div *ngIf="ownerId">
+          <mat-checkbox matInput [formControl]="cancelled" name="cancelled" id="cancelled" >Cancelled </mat-checkbox>
+      </div>
+
+
+      <p>
+        <strong>People registered:</strong> {{activity.peopleRegistered}}
+      </p>
+      <p>
+        <strong>Status:</strong>  {{state}}
+      </p>
+      
+      <div *ngIf="user && isTourist">
+        <button mat-raised-button color="primary" type="button"  *ngIf="!alreadySignedUp" [disabled]="state != 'Places available'" (click)="signup()">Sign up</button>
+        <button mat-raised-button color="primary" type="button"  *ngIf="alreadySignedUp" [disabled]="state != 'Places available'" (click)="cancel()">Cancel registration</button>
+
+        <!-- <button mat-raised-button color="accent" [class.active]="isFavorite" (click)="toggleFavorite()"><span *ngIf="!isFavorite">Add to favorites &hearts;</span> <span *ngIf="isFavorite">Remove from favorites &hearts;</span></button> -->
+      </div>
+      
+      <div *ngIf="ownerId">
+        <button mat-raised-button color="primary" type="button" [disabled]="!activityForm.valid" (click)="save()">Save</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

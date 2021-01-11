@@ -20,6 +20,8 @@ header-includes: |
 
 # Code smells
 
+## Duplicated code
+
 # Tècniques de refactoring
 
 # Refactoring switch/case amb el patró _Strategy_

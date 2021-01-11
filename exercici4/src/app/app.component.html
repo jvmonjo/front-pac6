@@ -1,0 +1,99 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item routerLink="/">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <div mat-line>Home</div>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="!user">
+      <mat-list-item
+        routerLink="/signin">
+        <mat-icon mat-list-icon>login</mat-icon>
+        <div mat-line>Sign in</div>
+      </mat-list-item>
+      <mat-list-item
+        routerLink="/signup">
+        <mat-icon mat-list-icon>person_add</mat-icon>
+        <div mat-line>Join now</div>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="user">
+      <mat-list-item
+        *ngIf="user && user.type == 0"
+        routerLink="/favorites">
+        <mat-icon mat-list-icon>favorite</mat-icon>
+        <div mat-line>Favorites</div>
+      </mat-list-item>
+      <mat-list-item
+        *ngIf="user && user.type == 0"
+        routerLink="/my-activities">
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <div mat-line>My activities</div>
+      </mat-list-item>
+      <mat-list-item
+        *ngIf="user && user.type == 1"
+        routerLink="/admin">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <div mat-line>Admin</div>
+      </mat-list-item>
+      <mat-list-item
+        routerLink="/profile">
+        <mat-icon mat-list-icon>person</mat-icon>
+        <div mat-line>Profile</div>
+      </mat-list-item>
+
+      <mat-list-item
+        (click)="logout()">
+        <mat-icon mat-list-icon>logout</mat-icon>
+        <div mat-line>Logout</div>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <a routerLink="/">
+        <img
+          class="logo"
+          width="40"
+          alt="Angular Logo"
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+        />
+      </a>
+      <span>{{title}}</span>
+      <span class="spacer"></span>
+      <button *ngIf="!user" routerLink="/signin" mat-icon-button aria-label="login button">
+        <mat-icon>login</mat-icon>
+      </button>
+      <button *ngIf="!user" routerLink="/signup"  mat-icon-button aria-label="signup button">
+        <mat-icon>person_add</mat-icon>
+      </button>
+      <button *ngIf="user" (click)="logout()" mat-icon-button aria-label="login button">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+    <main class="content padding">
+      <router-outlet></router-outlet>
+    <app-messages></app-messages>
+    </main>
+    <footer class="footer">
+      <div class="content padding">
+        &copy; 2020 - Tourist app
+      </div>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

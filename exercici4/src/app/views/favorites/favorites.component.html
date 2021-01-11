@@ -1,0 +1,17 @@
+<h1>Favorites</h1>
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading">
+  <div *ngIf="!favorites || favorites.length === 0">
+    You don't have any favorite yet
+  </div>
+  
+  <div fxLayout="row" fxLayoutGap="1em" fxLayout.xs="column" fxLayout.sm="column">
+    <div fxFlex="30" *ngFor="let activity of favorites">
+      <app-activity-card [activity]="activity" [isTourist]="isTourist" (onChange)="onChange($event)" ></app-activity-card>
+    </div>
+  </div>
+  <div class="activity-details">
+    <app-activity-details *ngIf="selectedActivity" [activity]="selectedActivity"></app-activity-details>
+  </div>
+</div>
+

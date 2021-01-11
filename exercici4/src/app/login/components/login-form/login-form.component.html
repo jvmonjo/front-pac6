@@ -1,0 +1,36 @@
+<div class="login-container" [@fadeInOut]>
+  <mat-card class="mat-elevation-z4 login-card">
+    <form class="login" [formGroup]="loginForm" (ngSubmit)="checkLogin()">
+
+      <section>
+        <mat-form-field appearance="fill">
+          <mat-label for="email">Email</mat-label>
+          <input matInput type="email" name="email" id="email" required [formControl]="email">
+          <mat-error *ngIf="email.hasError('pattern') && !email.hasError('required')">
+            Please, provide a valid email
+          </mat-error>
+          <mat-error *ngIf="email.hasError('required')">
+            Email is required.
+          </mat-error>
+        </mat-form-field>
+      </section>
+
+      <section>
+        <mat-form-field appearance="fill">
+          <mat-label for="password">Password</mat-label>
+          <input matInput type="password" [type]="hide ? 'password': 'text'" name="password" id="password" required [formControl]="password">
+          <mat-error *ngIf="password.hasError('minlength')">
+            Password has to have at least 8 characters
+          </mat-error>
+          <mat-error *ngIf="email.hasError('required')">
+            Email is required.
+          </mat-error>
+          <i class="material-icons" matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off'}}</i>
+        </mat-form-field>
+      </section>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+
+    </form>
+  </mat-card>
+</div>

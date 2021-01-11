@@ -1,0 +1,45 @@
+<h1>Education form</h1>
+<form class="education" [formGroup]="educationForm" (ngSubmit)="save()">
+
+  <mat-form-field appearance="fill">
+    <mat-label for="type">Type</mat-label>
+    <select matNativeControl [formControl]="type" required>
+      <option *ngFor="let item of typeList" [value]="item">{{item}}</option>
+    </select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label for="type">Level</mat-label>
+    <select matNativeControl [formControl]="level">
+      <option *ngFor="let item of levelList" [value]="item">{{item}}</option>
+    </select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label for="name">Name</mat-label>
+    <input matInput [formControl]="name" type="text" name="name" id="name" required>
+    <mat-error class="error" *ngIf="name.hasError('minlength') || name.hasError('maxlength') || name.hasError('required')">
+        Name should be between 3 and 35 characters
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label for="university">University</mat-label>
+    <input matInput [formControl]="university" type="text" name="university" id="university" required>
+    <mat-error class="error" *ngIf="name.hasError('minlength') || name.hasError('maxlength') || name.hasError('required')">
+        Name should be between 3 and 35 characters
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label for="finishDate">Finish date</mat-label>
+    <input matInput [formControl]="finishDate" type="date" name="finishDate" id="finishDate">
+  </mat-form-field>
+  
+
+
+
+<div>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!educationForm.valid">Save</button>
+</div>
+</form>

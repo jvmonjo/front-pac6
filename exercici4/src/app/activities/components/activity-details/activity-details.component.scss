@@ -1,0 +1,18 @@
+.activity {
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+
+  * {
+    margin-bottom: 1rem;
+  }
+  .error {
+    color: red;
+    font-size: 0.8rem;
+  }
+}
+
+button.active {
+  background-color: rgb(234, 211, 255);
+  color: rgb(150, 38, 255);
+}

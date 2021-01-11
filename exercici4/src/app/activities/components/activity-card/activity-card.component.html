@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+            <mat-icon *ngIf="activity.category === 'Enoturisme'">wine_bar</mat-icon>
+            <mat-icon *ngIf="activity.category === 'Cultura i patrimoni'">museum</mat-icon>
+            <mat-icon *ngIf="activity.category === 'Platges'">beach_access</mat-icon>
+            {{activity.price | currency }} 
+        </div>
+        <mat-card-title>{{activity.name}}</mat-card-title>
+        <mat-card-subtitle>{{activity.date | date:'shortDate'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-chip-list aria-label="Fish selection">
+            <mat-chip class="custom-chip" color="primary" selected>{{activity.category}}</mat-chip>
+          </mat-chip-list>
+        <p>
+        {{activity.description}}
+        </p>
+        <mat-chip-list aria-label="Fish selection">
+            <mat-chip *ngIf="activity.cancelled" color="warn" selected>CANCELLED</mat-chip>
+        </mat-chip-list>
+    </mat-card-content>
+    <mat-card-actions *ngIf="isTourist">
+        <button mat-button [class.active]="isFavorite" (click)="toggleFavorite()"><span *ngIf="!isFavorite">ADD FAV &hearts;</span> <span *ngIf="isFavorite">REMOVE FAV &hearts;</span></button>
+        <button routerLink="#activity-details" mat-button (click)="onSelected(activity)">+ INFO</button>
+    </mat-card-actions>
+</mat-card>

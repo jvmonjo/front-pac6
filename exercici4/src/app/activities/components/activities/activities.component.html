@@ -1,0 +1,64 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div *ngIf="!loading && (!activities || activities.length == 0)">
+  You don't have any activity yet
+</div>
+
+<div *ngIf="!loading && activities && activities.length > 0">
+  <div *ngIf="ownerId">
+    <table *ngIf="!loading && activities && activities.length > 0" mat-table [dataSource]="activities" class="mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let activity"> {{activity.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let activity"> {{activity.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let activity"> {{activity.category}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let activity"> {{activity.price}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let activity"> {{activity.date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let activity">
+          <button mat-icon-button (click)="onSelected(activity)">
+            <mat-icon color="accent">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsActivities"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsActivities;"></tr>
+    </table>
+  </div>
+
+  <div *ngIf="!ownerId" fxLayout="row" fxLayoutGap="1em" fxLayout.xs="column" fxLayout.sm="column" [@cardsAnimation]="activities.length">
+    <div fxFlex="30" *ngFor="let activity of activities">
+      <app-activity-card [activity]="activity" [isTourist]="isTourist" [isUser]="isTourist"></app-activity-card>
+    </div>
+  </div>
+    
+</div>
+
+<div *ngIf="ownerId" class="button-container">
+  <button mat-raised-button color="primary" (click)="onSelected(null)">Add activity</button>
+</div>
+
+<div class="activity-details">
+  <app-activity-details *ngIf="selectedActivity" [activity]="selectedActivity"  [ownerId]="ownerId"></app-activity-details>
+</div>
+
