@@ -113,6 +113,7 @@ const isAdmin = 1
 Es tracta d'un mètode amb més de tres o quatre paràmetres. Amb molts paràmetres el codi guanya complexitat i es fa difícil d'entendre.
 
 Exemple[^2]:
+
 [^2]: Exemple extret de [sourcemaking.com](https://sourcemaking.com/refactoring/replace-parameter-with-method-call)
 
 ```js
