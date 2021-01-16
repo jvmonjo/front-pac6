@@ -127,6 +127,68 @@ const finalPrice = discountedPrice(
 
 # Tècniques de refactoring
 
+## Extract method
+
+S'usa quan tenim un mètode o classe molt llargs i podem trencar el codi en diverses parts més especialitzades.
+
+Exemple:
+
+```js
+//
+// Abans
+//
+productDetails(): void {
+  const product = getProduct();
+
+  console.log("name: " + product.name);
+  console.log("price: " + product.price);
+}
+//
+// Després
+//
+productDetails(): void {
+  const product = getProduct();
+  printProductDetails(product);
+}
+
+printProductDetails(product: Product): void {
+  console.log("name: " + product.name);
+  console.log("price: " + product.price);
+}
+
+```
+
+## Extract variable
+
+Quan tenim una expressió difícil de comprendre, assignar-la a una variable facilita la seua utilització per exemple en _if statements_.
+
+Exemple:
+
+```js
+// Abans
+getDetails(user: User): UserDetails {
+  if (user.type === 'Admin' ||
+  user.type === 'Manager' ||
+  user.type === 'Owner'
+  )
+  {
+    // do something
+  }
+}
+
+// Després
+getDetails(user: User): UserDetails {
+  const isAdmin = user.type === 'Admin';
+  const isManager = user.type === 'Manager';
+  const isOwner = user.type === 'Owner';
+
+  if(isAdmin || isManager || isOwner)
+  {
+    // do something
+  }
+}
+```
+
 # Refactoring switch/case amb el patró _Strategy_
 
 # Refactoring Tourist app
