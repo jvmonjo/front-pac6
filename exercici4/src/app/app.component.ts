@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/profile/models/User';
-import { StorageService } from 'src/app/shared/services/storage.service';
-import { ProfileService } from 'src/app/profile/services/profile.service';
 import { AppState } from './app.reducer';
 import { Store } from '@ngrx/store';
 import { logoutDispatch } from './login/actions';

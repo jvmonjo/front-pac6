@@ -1,10 +1,8 @@
-import { Route } from '@angular/compiler/src/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Education } from 'src/app/profile/models/Education';
 import { ProfileService } from 'src/app/profile/services/profile.service';
-import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 

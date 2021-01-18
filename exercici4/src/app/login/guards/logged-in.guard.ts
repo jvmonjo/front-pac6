@@ -3,7 +3,6 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
-import { ProfileService } from 'src/app/profile/services/profile.service';
 
 @Injectable({
   providedIn: 'root'
