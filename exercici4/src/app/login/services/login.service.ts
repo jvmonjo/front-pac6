@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/profile/models/User';
 import { ProfileService } from 'src/app/profile/services/profile.service';
-import { StorageService } from 'src/app/shared/services/storage.service';
 import { Credentials } from '../models/Credentials';
 
 @Injectable({
@@ -13,10 +12,7 @@ export class LoginService {
 
   public isLoggedIn: boolean = false;
   
-  private logger = new Subject<boolean>()
-
   constructor(
-    private storageService: StorageService,
     private profileService: ProfileService
   ) { }
 

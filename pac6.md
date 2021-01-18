@@ -363,4 +363,48 @@ loginManager.login();
 
 # Refactoring Tourist app
 
-Veure carpeta `exercici4`
+## Dead code
+
+Com que hem anat iterant la nostra app al llarg de diversos exercicis, he trobat alguns exemples de codi que ja no té cap utilitat
+
+En aquest cas el _smell code_ el podríem catalogar de _dead code_.
+
+La possible solució passa per usar, amb l'ajut d'un bon IDE con VS Code, detectar el codi que no està en ús (marcat amb un color més clar per VS Code) i eliminar-lo.
+
+Per exemple a login.service.ts hi ha dues línies a eliminar:
+
+```js
+// ...
+export class LoginService {
+
+  public isLoggedIn: boolean = false;
+  
+  private logger = new Subject<boolean>() // dead code
+
+  constructor(
+    private storageService: StorageService, // dead code
+    private profileService: ProfileService
+  ) { }
+
+  login({email, password}: Credentials): Observable<User>  {
+    const dbUsers = this.profileService.getUsers()
+    return dbUsers.pipe(
+      map(
+        users => {
+          const user = users.find(user => user.email === email && user.password === password)
+            if (user) {
+              return user
+            } else {
+              throw('Wrong email or password')
+            }
+        })
+    )
+  }
+
+}
+
+```
+
+El mateix ocorre amb _imports_ de mòduls que ja no tenim en ús.
+
+Codi font de la app amb la refactorització ja aplicada es pot trobar a la carpeta `exercici4`
