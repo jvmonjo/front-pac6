@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { mergeMap, map, catchError, exhaustMap, switchMap, tap } from 'rxjs/operators';
+import {  map, catchError, switchMap } from 'rxjs/operators';
 import { addActivity, addActivityError, addActivitySuccess, getActivities, getActivitiesSuccess, getActivity, getActivityError, getActivitySuccess, updateActivity, updateActivityError, updateActivitySuccess } from '../actions';
 import { of } from 'rxjs';
-import { Router } from '@angular/router';
-import { StorageService } from 'src/app/shared/services/storage.service';
 import { ActivitiesService } from '../services/activities.service';
 
 
@@ -14,7 +12,6 @@ export class ActivitiesEffects {
     constructor(
         private actions$: Actions,
         private activitiesService: ActivitiesService,
-        private router: Router
     ){}
 
     getActivities$ = createEffect(() =>{

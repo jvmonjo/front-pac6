@@ -465,4 +465,44 @@ ngOnInit(): void {
 }
 ```
 
+## Duplicated code
+
+Aquesta correcció ja la vaig aplicar al seu moment. Es tracta en aquest cas d'evitar posar manualment el valor d'un mateix paràmetre que es repeteix al llarg de diferents mètodes.
+
+En aquest cas apliquem la tècnica _Extract variable_.
+
+Per exemple a _activities.service.ts_:
+
+```js
+// ...
+getActivities(): Observable<Activity[]> {
+  return this.http.get<Activity[]>('api/activities')
+  .pipe()
+}
+
+getActivity(id: number): Observable<Activity> {
+  return this.http.get<Activity>(`api/activities/${id}`)
+  .pipe()
+}
+// ...
+```
+
+Passa a ser:
+
+```js
+// ...
+activitiesUrl = 'api/activities'
+
+getActivities(): Observable<Activity[]> {
+  return this.http.get<Activity[]>(this.activitiesUrl)
+  .pipe()
+}
+
+getActivity(id: number): Observable<Activity> {
+  return this.http.get<Activity>(`${this.activitiesUrl}/${id}`)
+  .pipe()
+}
+// ...
+```
+
 El codi font de la app amb les refactoritzacions ja aplicades es pot trobar a la carpeta `exercici4`.
