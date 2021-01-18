@@ -505,4 +505,4 @@ getActivity(id: number): Observable<Activity> {
 // ...
 ```
 
-El codi font de la app amb les refactoritzacions ja aplicades es pot trobar a la carpeta `exercici4`.
+El codi font complet de la app amb les refactoritzacions ja aplicades es pot trobar a la carpeta `exercici4`.
