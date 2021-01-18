@@ -66,13 +66,16 @@ export class ActivitiesComponent implements OnInit {
       this.loading = state.loading
 
       const activities = state.activities
-      if (activities && this.userId) {
+      const isUser = activities && this.userId
+      const isAdmin = activities && this.ownerId
+      
+      if (isUser) {
         this.store.select('profile').subscribe(profile => {
           const myActivities = profile.activities
           const myActivitiesArray = myActivities.map(act => act.activityId)
           this.activities = activities.filter(act => myActivitiesArray.includes(act.id))
         })
-      } else if (activities && this.ownerId) {
+      } else if (isAdmin) {
         const ownerActivities = activities.filter(act => act.userId == this.ownerId)
         this.activities = ownerActivities
       } else {

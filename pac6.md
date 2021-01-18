@@ -505,4 +505,37 @@ getActivity(id: number): Observable<Activity> {
 // ...
 ```
 
+## Long method (II)
+
+un cas especial de long method és el que afecta a l'ús de condicionals. Això pot fer que la legibilitat del nostre codi es dificulte. La solució passa en el cas que veurem a continuació per _Extract variable_.
+
+```js
+// ...
+  if (activities && this.userId) {
+    // ...
+  } else if (activities && this.ownerId) {
+    // ...
+  } else {
+    // ...
+  }
+// ...
+```
+
+Que quedaria de la següent manera:
+
+```js
+// ...
+  const isUser = activities && this.userId
+  const isAdmin = activities && this.ownerId
+  
+  if (isUser) {
+    // ...
+  } else if (isAdmin) {
+    // ...
+  } else {
+    // ...
+  }
+// ...
+```
+
 El codi font complet de la app amb les refactoritzacions ja aplicades es pot trobar a la carpeta `exercici4`.
