@@ -407,4 +407,62 @@ export class LoginService {
 
 El mateix ocorre amb _imports_ de mòduls que ja no tenim en ús.
 
-Codi font de la app amb la refactorització ja aplicada es pot trobar a la carpeta `exercici4`
+## Long method
+
+Alguns mètodes han anat creixent i incrementant la complexitat del codi. Una possible solució és l'anomenat _Extract Method_.
+
+Per exemple a `activities.component.ts` tenia el següent codi al mètode _ngInit_:
+
+```js
+ngOnInit(): void {
+  this.store.select('login').subscribe(state =>{
+    this.isTourist = state.user && state.user.type === 0
+  })
+
+  // reset selected activity
+  this.store.dispatch(selectActivity(null))
+
+  // get activities and subscribe
+  this.store.dispatch(getActivities())
+  this.store.select('activities').subscribe( state => {
+    const selectedActivity = state.selectedActivity
+    this.selectedActivity = selectedActivity
+    this.loading = state.loading
+
+    const activities = state.activities
+    if (activities && this.userId) {
+      this.store.select('profile').subscribe(profile => {
+        const myActivities = profile.activities
+        const myActivitiesArray = myActivities.map(act => act.activityId)
+        this.activities = activities.filter(act => myActivitiesArray.includes(act.id))
+      })
+    } else if (activities && this.ownerId) {
+      const ownerActivities = activities.filter(act => act.userId == this.ownerId)
+      this.activities = ownerActivities
+    } else {
+      this.activities = activities
+    }
+  })
+}
+```
+
+Després d'aplicar la refactorització ha quedat així:
+
+```js
+ngOnInit(): void {
+  this.store.select('login').subscribe(state =>{
+    this.isTourist = state.user && state.user.type === 0
+  })
+
+  // reset selected activity
+  this.store.dispatch(selectActivity(null))
+
+  // get activities
+  this.store.dispatch(getActivities())
+
+  // subscribe to activities
+  this.subscribeActivities()
+}
+```
+
+El codi font de la app amb les refactoritzacions ja aplicades es pot trobar a la carpeta `exercici4`.

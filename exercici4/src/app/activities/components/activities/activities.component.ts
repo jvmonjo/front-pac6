@@ -51,8 +51,15 @@ export class ActivitiesComponent implements OnInit {
     // reset selected activity
     this.store.dispatch(selectActivity(null))
 
-    // get activities and subscribe
+    // get activities
     this.store.dispatch(getActivities())
+
+    // subscribe to activities
+    this.subscribeActivities()
+  
+  }
+
+  subscribeActivities() {
     this.store.select('activities').subscribe( state => {
       const selectedActivity = state.selectedActivity
       this.selectedActivity = selectedActivity
@@ -72,7 +79,6 @@ export class ActivitiesComponent implements OnInit {
         this.activities = activities
       }
     })
-  
   }
 
   onSelected(activity: Activity) {
