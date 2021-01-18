@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, map, tap, find, switchMap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from '../../shared/services/message.service';
-import { Observable, of, Subject, from } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { User } from '../models/User';
 import { StorageService } from '../../shared/services/storage.service';
-import { Router } from '@angular/router';
 import { Education } from 'src/app/profile/models/Education';
 import { UserLanguage } from 'src/app/profile/models/UserLanguage';
 
@@ -14,9 +13,7 @@ import { UserLanguage } from 'src/app/profile/models/UserLanguage';
 })
 export class ProfileService {
   private usersUrl = 'api/users'
-  private loggedIn = false
   public currentUser: User = this.storageService.getItem('user')
-  private logger = new Subject<boolean>()
   private userSubject = new Subject<User>()
 
   httpOptions = {
@@ -26,8 +23,7 @@ export class ProfileService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private storageService: StorageService,
-    private router: Router) { 
+    private storageService: StorageService) { 
      }
 
     getUsers(): Observable<User[]> {
