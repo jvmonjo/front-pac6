@@ -189,6 +189,178 @@ getDetails(user: User): UserDetails {
 }
 ```
 
+## Rename method
+
+Quan tenim un mètode amb una nomenclatura que no reflecteix allò que fa.
+
+Exemple:
+
+```js
+// abans
+metodeAmbUnNomPocAdequat(input: number): number {
+  return input * 2;
+}
+
+// després
+duplicate(input: number): number {
+  return input * 2;
+}
+```
+
+## Pull Up Method
+
+Quan tenim dues subclasses amb el mateix mètode podem moure aquest camp a la classe mare.
+
+Exemple:
+
+```js
+// abans
+class dog extends animal {
+  breath(){
+    // ...
+  }
+}
+
+class cat extends animal {
+  breath(){
+    // ...
+  }
+}
+
+// després
+class animal {
+  breath(){
+    // ...
+  }
+}
+```
+
+## Pull Up field
+
+Quan tenim dues subclasses amb el mateix camp podem moure aquest camp a la classe mare.
+
+Exemple:
+
+```js
+// abans
+class dog extends animal {
+  age: number
+}
+
+class cat extends animal {
+  age: number
+}
+
+// després
+class animal {
+  age: number
+}
+```
+
+## Introduce Parameter Object
+
+Quan tenim paràmetres que es repeteixen al llarg de diferents parts del codi podem extreure una classe per estandarditzar aquests paràmetres i afegir mètodes per manipular-los si fos necessari.
+
+Exemple:
+
+```js
+// abans
+connect(url: string, headers: Headers, token: Token){
+  // ...
+}
+
+// després
+connect(connection: ConnectionObject){
+  // ...
+}
+
+```
+
+## Substitute Algorithm
+
+Quan volem canviar un algorisme per un altre més senzill o més eficient.
+
+Exemple:
+
+```js
+// abans
+getIngredient(ingredients: string[]): string{
+  for (let ingredient of ingredients) {
+    if (ingredient.equals("Arròs")){
+      return "Arròs";
+    }
+    if (ingredient.equals("Caldo")){
+      return "Caldo";
+    }
+    if (ingredient.equals("Pollastre")){
+      return "Pollastre";
+    }
+  }
+  return "";
+}
+
+// després
+getIngredient(ingredients: string[]): string{
+  let possibilities = ["Arròs", "Caldo", "Pollastre"];
+  for (let ingredient of ingredients) {
+    if (possibilities.includes(ingredient)) {
+      return ingredient;
+    }
+  }
+  return "";
+}
+```
+
 # Refactoring switch/case amb el patró _Strategy_
 
+```js
+// Implementem el manager d'estratègies
+class LoginMethod {
+  constructor() {
+    this._strategy = null;
+  }
+  set strategy(strategy) {
+    this._strategy = strategy;
+  }
+  get strategy() {
+    return this._strategy;
+  }
+  login() {
+    this._strategy.login();
+  }
+}
+
+// Implementem cada estratègia
+class GoogleLogin {
+  login() {
+    // login with Google
+  }
+}
+
+class FacebookLogin {
+  login() {
+    // login with facebook
+  }
+}
+class EmailLogin {
+  login() {
+    // login with email
+  }
+}
+
+// Apliquem el patró al nostre context
+
+const loginManager = new LoginManager();
+const googleLogin = new GoogleLogin();
+const facebookLogin = new FacebookLogin();
+const emailLogin = new EmailLogin();
+
+// Suposem que l'usuari tria Google login
+loginManager.strategy = googleLogin;
+loginManager.login();
+
+```
+
 # Refactoring Tourist app
+
+Veure carpeta `exercici4`
